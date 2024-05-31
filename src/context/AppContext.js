@@ -30,6 +30,34 @@ export const AppReducer = (state, action) => {
                     ...state
                 }
             }
+
+            case 'DEL_EXPENSE':
+            let final_budget = 0;
+            final_budget = state.expenses.reduce(
+                (previousExp, currentExp) => {
+                    return previousExp - currentExp.cost
+                },0
+            );
+            final_budget = final_budget - action.payload.cost;
+            action.type = "DONE";
+            if(final_budget <= state.budget) {
+                final_budget = 0;
+                state.expenses.map((currentExp)=> {
+                    if(currentExp.name === action.payload.name) {
+                        currentExp.cost = action.payload.cost - currentExp.cost;
+                    }
+                    return currentExp
+                });
+                return {
+                    ...state,
+                };
+            } else {
+                alert("Cannot increase the allocation! Out of funds");
+                return {
+                    ...state
+                }
+            }
+
             case 'RED_EXPENSE':
                 const red_expenses = state.expenses.map((currentExp)=> {
                     if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
@@ -43,6 +71,7 @@ export const AppReducer = (state, action) => {
                     ...state,
                     expenses: [...red_expenses],
                 };
+
             case 'DELETE_EXPENSE':
             action.type = "DONE";
             state.expenses.map((currentExp)=> {
@@ -57,6 +86,7 @@ export const AppReducer = (state, action) => {
                 ...state,
                 budget
             };
+
         case 'SET_BUDGET':
             action.type = "DONE";
             state.budget = action.payload;
@@ -69,6 +99,13 @@ export const AppReducer = (state, action) => {
             state.currency = action.payload;
             return {
                 ...state
+            }
+
+        case 'CHG_CURRENCY':
+            action.type = "DONE";
+            state.currency = action.payload;
+            return{
+                 ...state
             }
 
         default:

@@ -28,6 +28,27 @@
   color: #61dafb;
 }
 
+.currency-dropdown {
+  background-color: #90EE90; /* Green background */
+  border: none; /* Remove default border */
+  padding: 8px 16px; /* Add padding for spacing */
+  border-radius: 4px; /* Round the corners */
+  position: relative; /* Position for the dropdown arrow */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
+.currency-dropdown select{
+  background-color: #90EE90;
+  width:65%;
+  border: none;
+}
+
+.currency-dropdown select:focus {
+  outline: none; /* Remove focus outline */
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
